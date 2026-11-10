@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gerry Nautica – Servis brodskih i vanbrodskih motora | Bibinje</title>
+<meta name="description" content="Gerry – servis i održavanje brodskih i vanbrodskih motora u Bibinju kod Zadra. Od 1995.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b2239;
+    --navy-2: #12324f;
+    --sea: #1b6fa8;
+    --foam: #e8f1f8;
+    --accent: #f28c28;
+    --accent-dark: #d97414;
+    --text: #1d2a36;
+    --muted: #5b6b7a;
+    --bg: #ffffff;
+    --line: #dbe5ee;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  h1, h2, h3 { font-family: "Barlow Condensed", sans-serif; letter-spacing: .5px; line-height: 1.1; margin: 0 0 .5em; }
+  a { color: inherit; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+  /* Concept banner */
+  .concept {
+    background: var(--accent); color: #fff; text-align: center;
+    font-size: 13px; font-weight: 600; padding: 6px 16px;
+  }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(11, 34, 57, .96); backdrop-filter: blur(6px);
+    color: #fff;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo svg { width: 38px; height: 38px; }
+  .logo b { font-family: "Barlow Condensed", sans-serif; font-size: 26px; letter-spacing: 1px; }
+  .logo span { display: block; font-size: 11px; opacity: .7; letter-spacing: 2px; text-transform: uppercase; margin-top: -4px; }
+  .nav ul { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; font-weight: 500; font-size: 15px; }
+  .nav ul a { text-decoration: none; opacity: .85; }
+  .nav ul a:hover { opacity: 1; color: var(--accent); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff; text-decoration: none;
+    padding: 12px 22px; border-radius: 999px; font-weight: 600; font-size: 15px;
+    transition: background .2s;
+  }
+  .btn:hover { background: var(--accent-dark); }
+  .btn.ghost { background: transparent; border: 2px solid rgba(255,255,255,.5); }
+  .btn.ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+
+  /* Hero */
+  .hero {
+    position: relative; overflow: hidden; color: #fff;
+    isolation: isolate; z-index: 0;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 55%, var(--sea) 100%);
+    padding: 90px 0 210px;
+  }
+  .hero .wrap { position: relative; z-index: 5; }
+  .tag { display: inline-block; background: rgba(255,255,255,.12); padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+  .hero h1 { font-size: clamp(42px, 7vw, 78px); max-width: 780px; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { font-size: 19px; max-width: 580px; opacity: .9; margin: 0 0 32px; }
+  .hero .ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+  /* Sea, boat, gulls */
+  .sun {
+    position: absolute; right: 8%; top: 40px; width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(242,140,40,.45) 0%, rgba(242,140,40,.12) 45%, transparent 70%);
+    animation: glow 6s ease-in-out infinite; z-index: 0;
+  }
+  @keyframes glow { 50% { transform: scale(1.12); opacity: .75; } }
+
+  .sea { position: absolute; left: 0; right: 0; bottom: -1px; height: 170px; overflow: hidden; }
+  .wave { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; animation: drift linear infinite; }
+  .wave.back  { z-index: 1; animation-duration: 16s; }
+  .wave.mid   { z-index: 3; animation-duration: 10s; animation-direction: reverse; }
+  .wave.front { z-index: 4; animation-duration: 7s; }
+  @keyframes drift { to { transform: translateX(-50%); } }
+
+  .boat-track {
+    position: absolute; bottom: 46px; left: 0; width: 240px; z-index: 2;
+    animation: sail 26s linear infinite;
+  }
+  @keyframes sail {
+    from { transform: translateX(-280px); }
+    to   { transform: translateX(calc(100vw + 40px)); }
+  }
+  .boat { display: block; width: 100%; animation: bob 2.6s ease-in-out infinite; transform-origin: 60% 80%; }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(-2.5deg); }
+    50%      { transform: translateY(7px) rotate(1.5deg); }
+  }
+  .prop { transform-box: fill-box; transform-origin: center; animation: prop .12s linear infinite; }
+  @keyframes prop { 50% { transform: scaleY(.15); } }
+  .motor { transform-box: fill-box; transform-origin: 50% 0; animation: vibrate .18s linear infinite; }
+  @keyframes vibrate { 50% { transform: translateY(.6px) rotate(.4deg); } }
+  .foam circle { transform-box: fill-box; transform-origin: center; animation: foam 1.4s ease-out infinite; }
+  .foam circle:nth-child(2) { animation-delay: .35s; }
+  .foam circle:nth-child(3) { animation-delay: .7s; }
+  .foam circle:nth-child(4) { animation-delay: 1.05s; }
+  @keyframes foam {
+    from { transform: translate(0, 0) scale(.6); opacity: .95; }
+    to   { transform: translate(-46px, -6px) scale(1.6); opacity: 0; }
+  }
+  .flag { transform-box: fill-box; transform-origin: 0 50%; animation: flag .6s ease-in-out infinite alternate; }
+  @keyframes flag { to { transform: skewY(-12deg) scaleX(.85); } }
+
+  .gull { position: absolute; z-index: 1; width: 34px; animation: fly linear infinite; }
+  .gull path { fill: none; stroke: rgba(255,255,255,.75); stroke-width: 2.4; stroke-linecap: round; animation: flap .5s ease-in-out infinite alternate; transform-origin: center; transform-box: fill-box; }
+  @keyframes flap { to { transform: scaleY(.35); } }
+  @keyframes fly {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(-60px, 14px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Hero entrance */
+  .hero .tag, .hero h1, .hero p, .hero .ctas { opacity: 0; animation: fadeUp .9s cubic-bezier(.2,.7,.2,1) forwards; }
+  .hero h1 { animation-delay: .15s; }
+  .hero p { animation-delay: .3s; }
+  .hero .ctas { animation-delay: .45s; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+  .hero h1 em { position: relative; white-space: nowrap; }
+  .hero h1 em::after {
+    content: ""; position: absolute; left: 0; bottom: 2px; height: 6px; width: 100%;
+    background: var(--accent); opacity: .35; border-radius: 4px;
+    transform: scaleX(0); transform-origin: left; animation: underline .8s .9s ease forwards;
+  }
+  @keyframes underline { to { transform: scaleX(1); } }
+
+  /* Stats */
+  .stats { margin-top: -60px; position: relative; z-index: 3; }
+  .stats .grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: #fff; border-radius: var(--radius); box-shadow: 0 18px 40px rgba(11,34,57,.15);
+  }
+  .stat { padding: 28px 20px; text-align: center; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: 0; }
+  .stat b { display: block; font-family: "Barlow Condensed", sans-serif; font-size: 40px; color: var(--sea); line-height: 1; }
+  .stat span { font-size: 14px; color: var(--muted); }
+
+  section { padding: 90px 0; }
+  .eyebrow { color: var(--accent); font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+  .section-head { max-width: 640px; margin-bottom: 44px; }
+  .section-head h2 { font-size: clamp(34px, 4.5vw, 48px); color: var(--navy); margin-top: 6px; }
+  .section-head p { color: var(--muted); font-size: 17px; margin: 0; }
+
+  /* Services */
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card {
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 28px;
+    transition: transform .2s, box-shadow .2s, border-color .2s; background: #fff;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(11,34,57,.1); border-color: transparent; }
+  .icon { width: 52px; height: 52px; border-radius: 12px; background: var(--foam); display: grid; place-items: center; margin-bottom: 18px; }
+  .icon svg { width: 28px; height: 28px; stroke: var(--sea); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { font-size: 24px; color: var(--navy); }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  /* Brands */
+  .brands-sec { background: var(--foam); }
+  .brands { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .brand {
+    background: #fff; border-radius: 12px; padding: 22px 10px; text-align: center;
+    font-family: "Barlow Condensed", sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 1px; color: var(--navy-2);
+    position: relative;
+  }
+  .brand small { display: block; font-family: "Inter", sans-serif; font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+  .note { font-size: 13px; color: var(--muted); margin-top: 18px; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .photo {
+    aspect-ratio: 4/3; border-radius: var(--radius); position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--navy-2), var(--sea));
+    display: grid; place-items: center; color: rgba(255,255,255,.75); text-align: center; font-size: 14px;
+  }
+  .photo svg { width: 110px; height: 110px; stroke: rgba(255,255,255,.6); fill: none; stroke-width: 1.2; margin-bottom: 8px; }
+  .badge {
+    position: absolute; right: 18px; bottom: 18px; background: var(--accent); color: #fff;
+    border-radius: 12px; padding: 12px 18px; text-align: center; font-weight: 600; font-size: 13px;
+  }
+  .badge b { display: block; font-family: "Barlow Condensed", sans-serif; font-size: 34px; line-height: 1; }
+  .checks { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 12px; }
+  .checks li { display: flex; gap: 12px; align-items: flex-start; }
+  .checks li::before {
+    content: "✓"; flex: none; width: 24px; height: 24px; border-radius: 50%;
+    background: var(--foam); color: var(--sea); font-weight: 700; display: grid; place-items: center; font-size: 13px;
+  }
+
+  /* Process */
+  .process-sec { background: var(--navy); color: #fff; }
+  .process-sec .section-head h2 { color: #fff; }
+  .process-sec .section-head p { color: rgba(255,255,255,.7); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; counter-reset: s; }
+  .step { border-top: 3px solid var(--accent); padding-top: 20px; }
+  .step::before { counter-increment: s; content: "0" counter(s); font-family: "Barlow Condensed", sans-serif; font-size: 44px; color: var(--accent); display: block; line-height: 1; margin-bottom: 8px; }
+  .step h3 { font-size: 22px; }
+  .step p { margin: 0; color: rgba(255,255,255,.7); font-size: 15px; }
+
+  /* Contact */
+  .contact { display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; }
+  .info { display: grid; gap: 16px; }
+  .info-item { display: flex; gap: 16px; align-items: flex-start; padding: 18px; border: 1px solid var(--line); border-radius: 12px; }
+  .info-item .icon { margin: 0; flex: none; width: 46px; height: 46px; }
+  .info-item b { display: block; color: var(--navy); }
+  .info-item span, .info-item a { color: var(--muted); text-decoration: none; }
+  .info-item a:hover { color: var(--sea); }
+  .contact .info { align-content: start; }
+  .map {
+    border-radius: var(--radius); overflow: hidden; min-height: 300px; background: var(--foam);
+  }
+  .map iframe { width: 100%; height: 100%; min-height: 300px; border: 0; display: block; }
+
+  /* Inquiry form */
+  .inquiry-sec { background: var(--foam); }
+  .inquiry { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; align-items: start; }
+  .inquiry-side h2 { font-size: clamp(34px, 4.5vw, 48px); color: var(--navy); margin-top: 6px; }
+  .inquiry-side p { color: var(--muted); font-size: 17px; }
+  .form {
+    background: #fff; border-radius: var(--radius); padding: 32px;
+    box-shadow: 0 18px 40px rgba(11,34,57,.08);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  }
+  .field { display: grid; gap: 6px; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: 14px; font-weight: 600; color: var(--navy); }
+  .field label small { font-weight: 400; color: var(--muted); }
+  .field input, .field select, .field textarea {
+    font: inherit; font-size: 15px; color: var(--text);
+    padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff;
+    transition: border-color .2s, box-shadow .2s; width: 100%;
+  }
+  .field textarea { min-height: 120px; resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--sea); box-shadow: 0 0 0 3px rgba(27,111,168,.15);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips label {
+    display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--text);
+  }
+  .chips input { accent-color: var(--sea); width: auto; }
+  .chips label:has(input:checked) { border-color: var(--sea); background: var(--foam); }
+  .form .consent { grid-column: 1 / -1; display: flex; gap: 10px; font-size: 13px; color: var(--muted); align-items: flex-start; }
+  .form .consent input { margin-top: 3px; accent-color: var(--sea); }
+  .form .btn { grid-column: 1 / -1; justify-content: center; border: 0; cursor: pointer; font-family: inherit; padding: 15px; font-size: 16px; }
+  .form-ok {
+    display: none; grid-column: 1 / -1; text-align: center; padding: 30px 10px;
+  }
+  .form-ok b { display: block; font-family: "Barlow Condensed", sans-serif; font-size: 32px; color: var(--navy); }
+  .form-ok span { color: var(--muted); }
+  .form.sent > *:not(.form-ok) { display: none; }
+  .form.sent .form-ok { display: block; }
+  .quick { margin-top: 26px; display: grid; gap: 10px; }
+  .quick a { display: flex; align-items: center; gap: 10px; color: var(--navy); font-weight: 600; text-decoration: none; }
+  .quick a:hover { color: var(--sea); }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+  .reveal.from-left  { transform: translateX(-60px); }
+  .reveal.from-right { transform: translateX(60px); }
+  .reveal.pop { transform: scale(.8); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Header on scroll */
+  header { transition: background .3s; }
+  header .nav { transition: height .3s; }
+  header.scrolled .nav { height: 58px; }
+  header::after {
+    content: ""; position: absolute; left: 0; bottom: 0; height: 3px;
+    width: var(--progress, 0%); background: var(--accent);
+  }
+  .btn { transition: background .2s, transform .2s, box-shadow .2s; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(242,140,40,.35); }
+
+  /* Cards & brands */
+  .card .icon { transition: transform .4s cubic-bezier(.3,1.6,.5,1), background .3s; }
+  .card:hover .icon { transform: rotate(-12deg) scale(1.12); background: var(--accent); }
+  .card:hover .icon svg { stroke: #fff; }
+  .brand { transition: transform .3s, box-shadow .3s, color .3s; }
+  .brand:hover { transform: translateY(-5px) scale(1.04); box-shadow: 0 12px 24px rgba(11,34,57,.12); color: var(--sea); }
+
+  /* Steps: line draws in */
+  .step { position: relative; border-top-color: rgba(255,255,255,.15); }
+  .step::after {
+    content: ""; position: absolute; left: 0; top: -3px; height: 3px; width: 0;
+    background: var(--accent); transition: width 1s ease; transition-delay: calc(var(--d, 0s) + .3s);
+  }
+  .step.in::after { width: 100%; }
+
+  /* Stats: lagano lebdenje + pomak na hover */
+  .stats .grid { animation: float 5s ease-in-out infinite; }
+  .stat { transition: transform .35s cubic-bezier(.3,1.6,.5,1), background .3s, box-shadow .3s; border-radius: var(--radius); }
+  .stat b { transition: color .3s, transform .35s cubic-bezier(.3,1.6,.5,1); }
+  .stat:hover { transform: translateY(-8px); background: #fff; box-shadow: 0 14px 28px rgba(11,34,57,.14); }
+  .stat:hover b { color: var(--accent); transform: scale(1.1); }
+
+  /* About badge & photo */
+  .badge { animation: float 3.5s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-8px); } }
+  .photo::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.15) 50%, transparent 70%);
+    transform: translateX(-100%); animation: shine 4s ease-in-out infinite;
+  }
+  @keyframes shine { 60%, 100% { transform: translateX(100%); } }
+
+  /* Call button pulse */
+  .call-fab { animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(242,140,40,.6); }
+    70% { box-shadow: 0 0 0 18px rgba(242,140,40,0); }
+    100% { box-shadow: 0 0 0 0 rgba(242,140,40,0); }
+  }
+
+  @media (max-width: 560px) {
+    .boat-track { width: 170px; animation-duration: 16s; }
+    .sun { width: 140px; height: 140px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal, .hero .tag, .hero h1, .hero p, .hero .ctas { opacity: 1 !important; transform: none !important; }
+    .boat-track { transform: translateX(55vw); }
+  }
+
+  footer { background: #071726; color: rgba(255,255,255,.6); padding: 34px 0; font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+  /* Floating call button (mobile) */
+  .call-fab {
+    display: none; position: fixed; right: 16px; bottom: 16px; z-index: 20;
+    width: 58px; height: 58px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 8px 20px rgba(0,0,0,.25); place-items: center;
+  }
+  .call-fab svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 2; }
+
+  @media (max-width: 900px) {
+    .nav ul { display: none; }
+    .services { grid-template-columns: 1fr 1fr; }
+    .brands { grid-template-columns: repeat(3, 1fr); }
+    .about, .contact, .inquiry { grid-template-columns: 1fr; gap: 36px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .stats .grid { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(2) { border-right: 0; }
+    .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 16px; }
+    .nav .btn { display: none; }
+    .hero { padding: 60px 0 130px; }
+    .hero p { font-size: 17px; }
+    .services, .steps { grid-template-columns: 1fr; }
+    .brands { grid-template-columns: 1fr 1fr; }
+    .form { grid-template-columns: 1fr; padding: 22px; }
+    section { padding: 64px 0; }
+    .call-fab { display: grid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept">KONCEPT DIZAJNA · tekstovi, fotografije i podaci su privremeni i služe samo za prikaz smjera</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#f28c28"/>
+        <path d="M20 9v20M13 15h14M11 24c2 5 6 7 9 7s7-2 9-7" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <circle cx="20" cy="9" r="2.6" fill="none" stroke="#fff" stroke-width="2.2"/>
+      </svg>
+      <div><b>GERRY</b><span>Nautica · Bibinje</span></div>
+    </a>
+    <ul>
+      <li><a href="#usluge">Usluge</a></li>
+      <li><a href="#marke">Marke</a></li>
+      <li><a href="#o-nama">O nama</a></li>
+      <li><a href="#upit">Pošalji upit</a></li>
+      <li><a href="#kontakt">Lokacija</a></li>
+    </ul>
+    <a class="btn" href="tel:+385912072323">091 207 2323</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="tag">Servis motora · Bibinje, Zadar · od 1995.</div>
+    <h1>Vaš motor u <em>sigurnim rukama</em> već 30 godina</h1>
+    <p>Popravak i održavanje brodskih i vanbrodskih motora. Ovlašteni servis za Tohatsu i Parsun, iskustvo sa svim vodećim markama.</p>
+    <div class="ctas">
+      <a class="btn" href="#upit">Pošaljite upit</a>
+      <a class="btn ghost" href="#usluge">Pogledajte usluge</a>
+    </div>
+  </div>
+  <div class="sun" aria-hidden="true"></div>
+  <svg class="gull" style="top:70px;right:22%;animation-duration:9s" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 8 Q9 1 17 8 Q25 1 32 8"/></svg>
+  <svg class="gull" style="top:110px;right:15%;width:24px;animation-duration:11s;animation-delay:-3s" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 8 Q9 1 17 8 Q25 1 32 8" style="animation-delay:.2s"/></svg>
+  <svg class="gull" style="top:50px;right:32%;width:20px;animation-duration:13s;animation-delay:-6s" viewBox="0 0 34 12" aria-hidden="true"><path d="M2 8 Q9 1 17 8 Q25 1 32 8" style="animation-delay:.1s"/></svg>
+
+  <div class="sea" aria-hidden="true">
+    <svg class="wave back" viewBox="0 0 2880 170" preserveAspectRatio="none">
+      <path d="M0 70 Q180 40 360 70 T720 70 T1080 70 T1440 70 T1800 70 T2160 70 T2520 70 T2880 70 V170 H0Z" fill="rgba(255,255,255,.08)"/>
+    </svg>
+
+    <div class="boat-track">
+      <svg class="boat" viewBox="0 0 260 130">
+        <!-- wake foam -->
+        <g class="foam" fill="#fff">
+          <circle cx="22" cy="104" r="6"/><circle cx="22" cy="104" r="5"/><circle cx="22" cy="104" r="7"/><circle cx="22" cy="104" r="4"/>
+        </g>
+        <!-- outboard motor (penta) -->
+        <g class="motor">
+          <rect x="30" y="72" width="9" height="34" rx="2" fill="#1d2a36"/>
+          <path d="M26 100 h18 l-3 8 h-12z" fill="#1d2a36"/>
+          <path d="M33 108 l3 8 l3 -8z" fill="#1d2a36"/>
+          <rect x="18" y="36" width="30" height="38" rx="10" fill="#f28c28"/>
+          <rect x="18" y="50" width="30" height="5" fill="#fff" opacity=".9"/>
+          <rect x="44" y="58" width="12" height="4" rx="2" fill="#1d2a36"/>
+          <ellipse class="prop" cx="24" cy="104" rx="3" ry="9" fill="#9fb3c4"/>
+        </g>
+        <!-- hull -->
+        <path d="M52 62 L232 54 Q252 53 246 66 L224 98 Q216 106 200 106 L64 106 Q54 106 52 96 Z" fill="#ffffff"/>
+        <path d="M53 84 L238 76 L231 86 L54 92 Z" fill="#1b6fa8"/>
+        <path d="M52 62 L232 54" stroke="#0b2239" stroke-width="3" stroke-linecap="round"/>
+        <!-- console -->
+        <rect x="118" y="36" width="44" height="22" rx="4" fill="#e8f1f8"/>
+        <path d="M140 36 L158 18 L166 18 L162 36 Z" fill="#9fd0f0" opacity=".9"/>
+        <rect x="124" y="42" width="12" height="8" rx="2" fill="#12324f"/>
+        <!-- skipper -->
+        <circle cx="104" cy="22" r="7" fill="#f2c79b"/>
+        <path d="M96 20 Q104 9 112 20 Z" fill="#0b2239"/>
+        <rect x="97" y="29" width="14" height="27" rx="5" fill="#f28c28"/>
+        <path d="M110 36 L124 42" stroke="#f2c79b" stroke-width="4" stroke-linecap="round"/>
+        <!-- bow pole + flag -->
+        <path d="M224 54 V24" stroke="#0b2239" stroke-width="2"/>
+        <path class="flag" d="M224 24 h20 l-5 6 l5 6 h-20z" fill="#f28c28"/>
+        <!-- name -->
+        <text x="150" y="74" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="13" fill="#0b2239" letter-spacing="1.5">GERRY</text>
+      </svg>
+    </div>
+
+    <svg class="wave mid" viewBox="0 0 2880 170" preserveAspectRatio="none">
+      <path d="M0 112 Q180 92 360 112 T720 112 T1080 112 T1440 112 T1800 112 T2160 112 T2520 112 T2880 112 V170 H0Z" fill="rgba(23,92,145,.92)"/>
+    </svg>
+    <svg class="wave front" viewBox="0 0 2880 170" preserveAspectRatio="none">
+      <path d="M0 142 Q180 126 360 142 T720 142 T1080 142 T1440 142 T1800 142 T2160 142 T2520 142 T2880 142 V170 H0Z" fill="#fff"/>
+    </svg>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="grid">
+      <div class="stat"><b data-to="1995" data-from="1960" data-suffix=".">1995.</b><span>godina osnutka</span></div>
+      <div class="stat"><b data-to="30" data-suffix="+">30+</b><span>godina iskustva</span></div>
+      <div class="stat"><b data-to="10" data-suffix="+">10+</b><span>marki motora</span></div>
+      <div class="stat"><b data-to="2">2</b><span>ovlaštena servisa</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="usluge">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Usluge</div>
+      <h2>Sve za vaš motor na jednom mjestu</h2>
+      <p>Od redovnog godišnjeg servisa do zahtjevnih popravaka, za male vanbrodske motore i za ugradne brodske motore.</p>
+    </div>
+    <div class="services">
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div>
+        <h3>Redovni servis</h3>
+        <p>Zamjena ulja, filtera, svjećica, impelera i anoda prema preporuci proizvođača.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></div>
+        <h3>Popravci i remont</h3>
+        <p>Pronalazak kvara, popravak i kompletni remont brodskih i vanbrodskih motora.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+        <h3>Dijagnostika</h3>
+        <p>Računalna dijagnostika i provjera stanja prije sezone ili kupnje rabljenog motora.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M5 16l7 5 7-5"/></svg></div>
+        <h3>Zimovanje motora</h3>
+        <p>Konzervacija motora na kraju sezone i priprema za početak nove.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V4h8v3"/></svg></div>
+        <h3>Garancijski servis</h3>
+        <p>Ovlašteni garancijski servis za Tohatsu i Parsun vanbrodske motore.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>Brza intervencija</h3>
+        <p>Kvar usred sezone? Javite se i dogovorit ćemo najbrže moguće rješenje.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="marke" class="brands-sec">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Marke</div>
+      <h2>Servisiramo vodeće proizvođače</h2>
+      <p>Ovlašteni smo servis za Tohatsu i Parsun, a svakodnevno radimo i na motorima drugih marki.</p>
+    </div>
+    <div class="brands">
+      <div class="brand">TOHATSU<small>Ovlašteni servis</small></div>
+      <div class="brand">PARSUN<small>Ovlašteni servis</small></div>
+      <div class="brand">MERCURY</div>
+      <div class="brand">MERCRUISER</div>
+      <div class="brand">HONDA</div>
+      <div class="brand">SUZUKI</div>
+      <div class="brand">EVINRUDE</div>
+      <div class="brand">JOHNSON</div>
+      <div class="brand">MARINER</div>
+      <div class="brand">CUMMINS</div>
+    </div>
+    <p class="note">* U konačnoj verziji ovdje idu službeni logotipi, a popis marki potvrđujemo s vama.</p>
+  </div>
+</section>
+
+<section id="o-nama">
+  <div class="wrap about">
+    <div class="photo">
+      <div>
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 15-5-5-8 9"/></svg>
+        <div>Ovdje ide fotografija radionice</div>
+      </div>
+      <div class="badge"><b>30+</b>godina iskustva</div>
+    </div>
+    <div>
+      <div class="eyebrow">O nama</div>
+      <h2 style="font-size:clamp(34px,4.5vw,48px);color:var(--navy);margin-top:6px">Obiteljski obrt s tradicijom</h2>
+      <p style="color:var(--muted);font-size:17px">Gerry je od 1995. specijaliziran za popravak i održavanje brodskih i vanbrodskih motora. Radionica je u Bibinju, kraj marina u Sukošanu i Zadru, pa smo nadohvat ruke nautičarima iz cijele zadarske regije.</p>
+      <ul class="checks">
+        <li>Više od 30 godina iskustva s motorima svih veličina</li>
+        <li>Ovlašteni servis za Tohatsu i Parsun</li>
+        <li>Originalni rezervni dijelovi i jamstvo na popravke</li>
+        <li>Osobni pristup: razgovarate izravno s majstorom</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="process-sec">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Kako radimo</div>
+      <h2>Jednostavno, od poziva do vode</h2>
+      <p>Bez komplikacija: javite se, dogovorimo termin i motor vam vraćamo spreman za plovidbu.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Javite se</h3><p>Nazovite ili pošaljite poruku s markom i modelom motora.</p></div>
+      <div class="step"><h3>Dogovor</h3><p>Dogovaramo termin i okvirnu cijenu servisa.</p></div>
+      <div class="step"><h3>Servis</h3><p>Pregledamo, servisiramo ili popravimo motor originalnim dijelovima.</p></div>
+      <div class="step"><h3>Na more</h3><p>Motor preuzimate testiran i spreman za sezonu.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="upit" class="inquiry-sec">
+  <div class="wrap inquiry">
+    <div class="inquiry-side">
+      <div class="eyebrow">Pošaljite upit</div>
+      <h2>Trebate servis ili popravak?</h2>
+      <p>Ispunite kratki obrazac i javit ćemo vam se s terminom i okvirnom cijenom, najčešće isti ili sljedeći radni dan.</p>
+      <p>Što više podataka o motoru navedete (marka, snaga, godina), to vam brže možemo dati točnu informaciju.</p>
+      <div class="info" style="margin-top:26px">
+        <div class="info-item" style="background:#fff">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div>
+          <div><b>Radije zovete?</b><a href="tel:+385912072323">091 207 2323</a><br><a href="tel:+38523261675">023 261 675</a></div>
+        </div>
+      </div>
+      <div class="quick">
+        <a href="https://wa.me/385912072323" target="_blank" rel="noopener">💬 Pišite nam na WhatsApp</a>
+      </div>
+    </div>
+
+    <form class="form" id="inquiryForm" novalidate>
+      <div class="field">
+        <label for="f-name">Ime i prezime *</label>
+        <input id="f-name" name="ime" required autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="f-phone">Telefon *</label>
+        <input id="f-phone" name="telefon" type="tel" required autocomplete="tel" placeholder="09x xxx xxxx">
+      </div>
+      <div class="field full">
+        <label for="f-email">E-mail <small>(neobavezno)</small></label>
+        <input id="f-email" name="email" type="email" autocomplete="email">
+      </div>
+
+      <div class="field full">
+        <label>Vrsta usluge</label>
+        <div class="chips">
+          <label><input type="checkbox" name="usluga" value="Redovni servis"> Redovni servis</label>
+          <label><input type="checkbox" name="usluga" value="Popravak / kvar"> Popravak / kvar</label>
+          <label><input type="checkbox" name="usluga" value="Dijagnostika"> Dijagnostika</label>
+          <label><input type="checkbox" name="usluga" value="Zimovanje"> Zimovanje</label>
+          <label><input type="checkbox" name="usluga" value="Garancija"> Garancija</label>
+          <label><input type="checkbox" name="usluga" value="Ostalo"> Ostalo</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-type">Vrsta motora</label>
+        <select id="f-type" name="vrsta">
+          <option value="">Odaberite…</option>
+          <option>Vanbrodski motor</option>
+          <option>Ugradni (brodski) motor</option>
+          <option>Ne znam</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-brand">Marka motora</label>
+        <select id="f-brand" name="marka">
+          <option value="">Odaberite…</option>
+          <option>Tohatsu</option><option>Parsun</option><option>Mercury</option>
+          <option>MerCruiser</option><option>Honda</option><option>Suzuki</option>
+          <option>Evinrude</option><option>Johnson</option><option>Mariner</option>
+          <option>Cummins</option><option>Druga marka</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-model">Model / snaga <small>(npr. 40 KS)</small></label>
+        <input id="f-model" name="model">
+      </div>
+      <div class="field">
+        <label for="f-year">Godina proizvodnje</label>
+        <input id="f-year" name="godina" inputmode="numeric" placeholder="npr. 2018">
+      </div>
+
+      <div class="field full">
+        <label for="f-msg">Opis problema ili upita *</label>
+        <textarea id="f-msg" name="poruka" required placeholder="Npr. motor teško pali na hladno, treba godišnji servis prije sezone…"></textarea>
+      </div>
+
+      <label class="consent"><input type="checkbox" required> Slažem se da se moji podaci koriste isključivo za odgovor na ovaj upit.</label>
+
+      <button class="btn" type="submit">Pošalji upit</button>
+
+      <div class="form-ok">
+        <b>Hvala na upitu!</b>
+        <span>Javit ćemo vam se u najkraćem mogućem roku.<br><em>(Koncept: u pravoj verziji upit stiže na e-mail servisa.)</em></span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Lokacija</div>
+      <h2>Gdje se nalazimo</h2>
+      <p>Radionica je u poslovnoj zoni Lonići u Bibinju, nekoliko minuta od marina u Sukošanu i Zadru.</p>
+    </div>
+    <div class="contact">
+      <div class="info">
+        <div class="info-item">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><b>Adresa</b><span>Poslovna zona Lonići 20<br>23205 Bibinje, Hrvatska</span></div>
+        </div>
+        <div class="info-item">
+          <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div><b>Radno vrijeme</b><span>Pon – Pet: 8:00 – 16:00<br>Sezona: 1. ožujka – 31. prosinca</span></div>
+        </div>
+      </div>
+      <div class="map">
+        <iframe title="Lokacija – Bibinje" loading="lazy"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=15.255%2C44.055%2C15.305%2C44.085&layer=mapnik&marker=44.0700%2C15.2800"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 GERRY, obrt za popravak i održavanje brodskih i vanbrodskih motora · Bibinje</span>
+    <span>Koncept web stranice</span>
+  </div>
+</footer>
+
+<a class="call-fab" href="tel:+385912072323" aria-label="Nazovi">
+  <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+</a>
+
+<script>
+  // Koncept: obrazac se ne šalje nikamo, samo prikazuje potvrdu.
+  document.getElementById('inquiryForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!this.checkValidity()) { this.reportValidity(); return; }
+    this.classList.add('sent');
+    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  // Animacije pri skrolanju
+  const groups = [
+    ['.section-head', ''], ['.card', 'stagger'], ['.brand', 'pop stagger'], ['.step', 'stagger'],
+    ['.checks li', 'from-right stagger'], ['.info-item', 'from-left stagger'], ['.photo', 'from-left'],
+    ['.about > div:last-child', 'from-right'], ['.inquiry-side', 'from-left'], ['.form', 'from-right'],
+    ['.map', 'from-right'], ['.stat', 'pop stagger'], ['.note', '']
+  ];
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      en.target.classList.add('in');
+      const num = en.target.querySelector('[data-to]');
+      if (num) countUp(num);
+      io.unobserve(en.target);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  groups.forEach(([sel, opts]) => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.classList.add('reveal');
+      opts.split(' ').filter(o => o && o !== 'stagger').forEach(o => el.classList.add(o));
+      if (opts.includes('stagger')) el.style.setProperty('--d', (i % 6) * 0.1 + 's');
+      // nakon ulaska makni reveal klase da hover efekti rade bez kašnjenja
+      el.addEventListener('transitionend', function done(e) {
+        if (e.target !== el || e.propertyName !== 'opacity') return;
+        el.classList.remove('reveal', 'from-left', 'from-right', 'pop');
+        el.removeEventListener('transitionend', done);
+      });
+      io.observe(el);
+    });
+  });
+
+  // Brojači
+  function countUp(el) {
+    const to = +el.dataset.to, from = +(el.dataset.from || 0), suffix = el.dataset.suffix || '';
+    const start = performance.now(), dur = 1600;
+    (function tick(now) {
+      const t = Math.min((now - start) / dur, 1), eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(from + (to - from) * eased) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    })(start);
+  }
+
+  // Zaglavlje: smanjenje i traka napretka
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    header.classList.toggle('scrolled', scrollY > 40);
+    header.style.setProperty('--progress', (scrollY / max * 100) + '%');
+  }, { passive: true });
+</script>
+
+</body>
+</html>
