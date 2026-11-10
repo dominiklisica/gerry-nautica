@@ -330,7 +330,16 @@
     100% { box-shadow: 0 0 0 0 rgba(242,140,40,0); }
   }
 
+  /* nikad vodoravno pomicanje stranice */
+  html { overflow-x: hidden; }
+  body { overflow-x: clip; }
+  @media (max-width: 900px) {
+    /* na mobitelu bočne animacije idu odozdo da ne šire stranicu */
+    .reveal.from-left, .reveal.from-right { transform: translateY(40px); }
+  }
   @media (max-width: 560px) {
+    .concept-more { display: none; }
+    .hero .tag { font-size: 11px; letter-spacing: .5px; }
     .boat-track { width: 170px; animation-duration: 16s; }
     .sun { width: 140px; height: 140px; }
   }
@@ -376,7 +385,7 @@
 </head>
 <body>
 
-<div class="concept">KONCEPT DIZAJNA · tekstovi, fotografije i podaci su privremeni i služe samo za prikaz smjera</div>
+<div class="concept">KONCEPT DIZAJNA<span class="concept-more"> · tekstovi, fotografije i podaci su privremeni i služe samo za prikaz smjera</span></div>
 
 <header>
   <div class="wrap nav">
